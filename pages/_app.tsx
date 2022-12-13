@@ -1,9 +1,10 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import initMockAPI from "./mocks";
+import BrowserLayout from "../component/Layout/BrowserLayout";
 
 export default function App({ Component, pageProps }: AppProps) {
   initMockAPI();
 
-  return <Component {...pageProps} />;
+  return <BrowserLayout>{<Component {...pageProps} />}</BrowserLayout>;
 }
