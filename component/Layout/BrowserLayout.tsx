@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import React, { ReactElement } from "react";
 import Cube from "../../styles/Asset/cube.png";
-import { H1 } from "../display/font";
+import { H1, Subtitle1, Subtitle4 } from "../display/font";
 
 interface Menu {
   children: ReactElement;
@@ -16,6 +16,10 @@ const BrowserLayout = ({ children }: Menu) => {
           <Image src={Cube} alt="mainImage" width={40} height={40} />
           <H1>Cube</H1>
         </ImageWrapper>
+        <ContentWrapper>
+          <Subtitle4>소개</Subtitle4>
+          <Subtitle4>포트폴리오</Subtitle4>
+        </ContentWrapper>
       </Menu>
       {children}
     </Layout>
@@ -38,7 +42,9 @@ const Menu = styled.div`
   height: 50px;
   color: black;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
+  /* color: white; */
   padding: 10px;
 `;
 
@@ -47,4 +53,9 @@ const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

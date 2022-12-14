@@ -1,4 +1,77 @@
+import { injectGlobal } from "@emotion/css";
+import emotionNormalize from "emotion-normalize";
 import { FontStyle } from "../interface/global";
+
+injectGlobal`
+  ${emotionNormalize};
+  @font-face {
+    font-family: 'Apple SD Gothic Neo';
+    src: url('/fonts/AppleSDGothicNeoL.ttf');
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Apple SD Gothic Neo';
+    src: url('/fonts/AppleSDGothicNeoR.ttf');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Apple SD Gothic Neo';
+    src: url('/fonts/AppleSDGothicNeoM.ttf');
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Apple SD Gothic Neo';
+    src: url('/fonts/AppleSDGothicNeoEB.ttf');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Apple SD Gothic Neo';
+    src: url('/fonts/AppleSDGothicNeoB.ttf');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  html {
+    font-family: 'Apple SD Gothic Neo', san-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 9px;
+    font-weight: 400;
+
+    @media (max-width: 1280px) {
+      font-size: 0.73vw;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 1.3vw;
+    }
+    @media (max-width: 600px) {
+      font-size: 2.3364vw;
+    }
+
+    @media (max-width: 425px) {
+      font-size: 2.7777vw;
+    }
+
+
+    caret-color: #fd7e35;
+  }
+  * {
+    box-sizing: border-box;
+    --ios-top: env(safe-area-inset-top, 0);
+    --ios-right: env(safe-area-inset-right, 0);
+    --ios-bottom: env(safe-area-inset-bottom, 0);
+    --ios-left: env(safe-area-inset-left, 0);
+  }
+  `;
 
 //프로그램 내에 사용되는 폰트 정리
 export const typography: { [key: string]: FontStyle } = {

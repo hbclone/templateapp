@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import initMockAPI from "./mocks";
 import BrowserLayout from "../component/Layout/BrowserLayout";
