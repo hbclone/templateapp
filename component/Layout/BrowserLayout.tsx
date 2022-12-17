@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { H1, Subtitle4 } from "component/display/font";
 import Image from "next/image";
 import React, { ReactElement } from "react";
-import Cube from "../../styles/Asset/cube.png";
-import { H1, Subtitle1, Subtitle4 } from "../display/font";
+import Cube from "styles/Asset/cube.png";
 
 interface Menu {
   children: ReactElement;
@@ -18,7 +18,6 @@ const BrowserLayout = ({ children }: Menu) => {
         </ImageWrapper>
         <ContentWrapper>
           <Subtitle4>소개</Subtitle4>
-          <Subtitle4>포트폴리오</Subtitle4>
         </ContentWrapper>
       </Menu>
       {children}
