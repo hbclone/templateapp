@@ -18,7 +18,6 @@ const BrowserLayout = ({ children }: Menu) => {
         </ImageWrapper>
         <ContentWrapper>
           <Subtitle4>소개</Subtitle4>
-          <Subtitle4>테스트</Subtitle4>
         </ContentWrapper>
       </Menu>
       {children}
