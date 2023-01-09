@@ -1,4 +1,5 @@
 import { injectGlobal } from "@emotion/css";
+import styled from "@emotion/styled";
 import emotionNormalize from "emotion-normalize";
 import { FontStyle } from "../interface/global";
 
@@ -46,22 +47,6 @@ injectGlobal`
     font-size: 9px;
     font-weight: 400;
 
-    @media (max-width: 1280px) {
-      font-size: 0.73vw;
-    }
-
-    @media (max-width: 767px) {
-      font-size: 1.3vw;
-    }
-    @media (max-width: 600px) {
-      font-size: 2.3364vw;
-    }
-
-    @media (max-width: 425px) {
-      font-size: 2.7777vw;
-    }
-
-
     caret-color: #fd7e35;
   }
   * {
@@ -72,6 +57,14 @@ injectGlobal`
     --ios-left: env(safe-area-inset-left, 0);
   }
   `;
+//flex 형태의 DIV
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+export const Row = styled.div`
+  display: flex;
+`;
 
 //프로그램 내에 사용되는 폰트 정리
 export const typography: { [key: string]: FontStyle } = {
