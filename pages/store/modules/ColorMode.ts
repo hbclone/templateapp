@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ColorMode {
-  mode: string;
+  mode: boolean;
 }
 const ColorSlice = createSlice({
   name: "colorMode",
   initialState: {
-    mode: "dark",
+    mode: false,
   } as ColorMode,
   reducers: {
-    changeMode: (state, action: PayloadAction<ColorMode>) => {
-      state.mode = action.payload.mode;
+    changeMode: (state) => {
+      state.mode = !state.mode;
     },
   },
 });

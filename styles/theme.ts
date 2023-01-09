@@ -1,10 +1,11 @@
 import { injectGlobal } from "@emotion/css";
-import styled from "@emotion/styled";
 import emotionNormalize from "emotion-normalize";
+import styled, { createGlobalStyle } from "styled-components";
+import normalize from "styled-normalize";
 import { FontStyle } from "../interface/global";
 
-injectGlobal`
-  ${emotionNormalize};
+export const GlobalStyle = createGlobalStyle`
+  ${normalize}
   @font-face {
     font-family: 'Apple SD Gothic Neo';
     src: url('/fonts/AppleSDGothicNeoL.ttf');
@@ -40,14 +41,19 @@ injectGlobal`
     font-weight: 700;
     font-display: swap;
   }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  * { font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';}
+  a { cursor: pointer; text-decoration: none; }
 
   html {
     font-family: 'Apple SD Gothic Neo', san-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 9px;
     font-weight: 400;
-
-    caret-color: #fd7e35;
   }
   * {
     box-sizing: border-box;
@@ -56,7 +62,52 @@ injectGlobal`
     --ios-bottom: env(safe-area-inset-bottom, 0);
     --ios-left: env(safe-area-inset-left, 0);
   }
-  `;
+
+`;
+
+interface Theme {
+  bg: {
+    primary: string;
+    side: string;
+  };
+  text: {
+    primary: string;
+  };
+  border: {
+    primary: string;
+  };
+}
+
+//theme
+const light: Theme = {
+  bg: {
+    primary: "F8F8FB",
+    side: "#eff0f5",
+  },
+  text: {
+    primary: "#202124",
+  },
+  border: {
+    primary: "#9277FF",
+  },
+};
+
+const dark: Theme = {
+  bg: {
+    primary: "#252945",
+    side: "#7E88C3",
+  },
+  text: {
+    primary: "#eff0f5",
+  },
+  border: {
+    primary: "#141625",
+  },
+};
+
+export const lightTheme = { ...light };
+export const darkTheme = { ...dark };
+
 //flex 형태의 DIV
 export const Column = styled.div`
   display: flex;
