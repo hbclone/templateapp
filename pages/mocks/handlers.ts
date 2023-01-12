@@ -1,12 +1,9 @@
 import { rest } from "msw";
+import { menu } from "pages/api/data/menu";
 
 export const handlers = [
-  rest.get("http://localhost:4000/user", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        name: "x",
-      })
-    );
+  //메뉴 아이템 가져오기
+  rest.get("/menus", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(menu));
   }),
 ];

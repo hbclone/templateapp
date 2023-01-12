@@ -10,6 +10,8 @@ import styled from "styled-components";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import { IMenu } from "pages/api/interface/menu";
+import axios from "axios";
 interface Menu {
   children: ReactElement;
 }
@@ -17,10 +19,15 @@ interface Menu {
 const BrowserLayout = ({ children }: Menu) => {
   const dispatch = useDispatch();
   const Color = useSelector<ReducerType, ColorMode>((state) => state.ColorMode);
-
   const changeItem = () => {
     dispatch(changeMode());
   };
+
+  const getMenu = async () => {
+    const item = await axios.get("/menus");
+    console.log("item.data :>> ", item.data);
+  };
+
   return (
     <Layout>
       <Menu>
@@ -35,6 +42,7 @@ const BrowserLayout = ({ children }: Menu) => {
                 cursor: "pointer",
                 color: "#262626",
               }}
+              onClick={getMenu}
             />
 
             {Color.mode ? (
