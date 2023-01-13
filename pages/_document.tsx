@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
+import initMockAPI from "./mocks";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

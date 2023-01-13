@@ -1,6 +1,6 @@
 import { H1, Subtitle4 } from "component/display/font";
 import Image from "next/image";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Cube from "styles/Asset/cube.png";
 import { Column, Row } from "styles/theme";
@@ -10,23 +10,28 @@ import styled from "styled-components";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import { fetchMenu } from "pages/store/modules/Menu";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { IMenu } from "pages/api/interface/menu";
-import axios from "axios";
+import { useAppDispatch, useAppSelector } from "pages/store";
+import Button from "@mui/material/Button";
 interface Menu {
   children: ReactElement;
 }
 
 const BrowserLayout = ({ children }: Menu) => {
-  const dispatch = useDispatch();
-  const Color = useSelector<ReducerType, ColorMode>((state) => state.ColorMode);
+  const dispatch = useAppDispatch();
+  const Color = useAppSelector((state) => state.ColorMode);
+  const item = useAppSelector((state) => state.Menu);
+
+  console.log("item :>> ", item);
   const changeItem = () => {
     dispatch(changeMode());
   };
 
-  const getMenu = async () => {
-    const item = await axios.get("/menus");
-    console.log("item.data :>> ", item.data);
-  };
+  useEffect(() => {
+    dispatch(fetchMenu());
+  }, [dispatch]);
 
   return (
     <Layout>
@@ -42,7 +47,6 @@ const BrowserLayout = ({ children }: Menu) => {
                 cursor: "pointer",
                 color: "#262626",
               }}
-              onClick={getMenu}
             />
 
             {Color.mode ? (
@@ -68,6 +72,9 @@ const BrowserLayout = ({ children }: Menu) => {
             )}
           </Row>
         </ImageWrapper>
+        {JSON.stringify(item.item)}
+        {Color.mode ? "dark" : "white"}
+        <Button onClick={() => dispatch(fetchMenu())}>fsdhkfhdskj</Button>
       </Menu>
       <Column>{children}</Column>
     </Layout>

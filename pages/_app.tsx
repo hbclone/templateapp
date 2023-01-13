@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
 import initMockAPI from "./mocks";
 import BrowserLayout from "../component/Layout/BrowserLayout";
-import { wrapper } from "./store";
-import { useSelector } from "react-redux";
+import { store, wrapper } from "./store";
+import { Provider, useSelector } from "react-redux";
 import { ReducerType } from "./store/modules/RootReducer";
 import { ColorMode } from "./store/modules/ColorMode";
 import { darkTheme, GlobalStyle, lightTheme } from "styles/theme";
@@ -14,10 +14,12 @@ function App({ Component, pageProps }: AppProps) {
   const theme = Color.mode ? darkTheme : lightTheme;
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <BrowserLayout>{<Component {...pageProps} />}</BrowserLayout>;
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <BrowserLayout>{<Component {...pageProps} />}</BrowserLayout>;
+      </ThemeProvider>
+    </Provider>
   );
 }
 

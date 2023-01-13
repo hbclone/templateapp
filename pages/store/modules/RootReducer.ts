@@ -2,18 +2,23 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 import ColorMode from "./ColorMode";
+import Menu from "./Menu";
 
-const reducer = (state: any, action: any) => {
+export const combinedReducers = combineReducers({
+  ColorMode,
+  Menu,
+});
+
+const Rootreducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
     return {
       ...state,
       ...action.payload,
     };
   }
-  return combineReducers({
-    ColorMode,
-  })(state, action);
+  return combinedReducers(state, action);
 };
 
-export type ReducerType = ReturnType<typeof reducer>;
-export default reducer;
+export type ReducerType = ReturnType<typeof Rootreducer>;
+
+export default Rootreducer;
