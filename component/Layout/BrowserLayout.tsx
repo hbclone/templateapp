@@ -1,20 +1,17 @@
-import { H1, Subtitle4 } from "component/display/font";
 import Image from "next/image";
 import React, { ReactElement, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Cube from "styles/Asset/cube.png";
-import { Column, Row } from "styles/theme";
-import { ReducerType } from "pages/store/modules/RootReducer";
-import { changeMode, ColorMode } from "pages/store/modules/ColorMode";
+import { BaseMode, Column, Row } from "styles/theme";
+import { changeMode } from "pages/store/modules/ColorMode";
 import styled from "styled-components";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { fetchMenu } from "pages/store/modules/Menu";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { IMenu } from "pages/api/interface/menu";
 import { useAppDispatch, useAppSelector } from "pages/store";
 import Button from "@mui/material/Button";
+import { MenuItem } from "pages/components/Common/Menu";
+import { IMenu, IMenuItem } from "pages/api/interface/menu";
 interface Menu {
   children: ReactElement;
 }
@@ -22,15 +19,15 @@ interface Menu {
 const BrowserLayout = ({ children }: Menu) => {
   const dispatch = useAppDispatch();
   const Color = useAppSelector((state) => state.ColorMode);
-  const item = useAppSelector((state) => state.Menu);
+  const item = useAppSelector((state) => state.Menu?.item[0]?.item);
 
-  console.log("item :>> ", item);
   const changeItem = () => {
     dispatch(changeMode());
   };
 
   useEffect(() => {
-    dispatch(fetchMenu());
+    //msw가 서비스 워커에 등록되기 전에 redux에서 동작하는 현상 방지를 위해 딜레이를 줌
+    setTimeout(() => dispatch(fetchMenu()), 1000);
   }, [dispatch]);
 
   return (
@@ -72,9 +69,12 @@ const BrowserLayout = ({ children }: Menu) => {
             )}
           </Row>
         </ImageWrapper>
-        {JSON.stringify(item.item)}
-        {Color.mode ? "dark" : "white"}
-        <Button onClick={() => dispatch(fetchMenu())}>fsdhkfhdskj</Button>
+        <TableWrapper>
+          {item?.map((e: IMenuItem) => {
+            console.log("e :>> ", e);
+            return <MenuItem id={e.id} tabName={e.tabName} subTab={e.subTab} />;
+          })}
+        </TableWrapper>
       </Menu>
       <Column>{children}</Column>
     </Layout>
@@ -88,7 +88,7 @@ const Layout = styled.div`
   width: 100%;
   height: 100vh;
   background: ${({ theme }) => theme.bg.primary};
-  transition: all ease 1s 0s;
+  transition: background-color ease 1s;
 `;
 
 const Menu = styled.div`
@@ -96,14 +96,9 @@ const Menu = styled.div`
   flex-direction: column;
   width: 30rem;
   height: 100%;
-  background: ${({ theme }) => theme.text.primary};
-  align-items: center;
-  justify-content: space-between;
-  border-right: ${({ theme }) => `1px solid ${theme.border.primary}`};
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  background: ${({ theme }) => theme.bg.side};
-  transition: all ease 1s 0s;
+  ${BaseMode}
 `;
 
 const ImageWrapper = styled.div`
@@ -113,13 +108,12 @@ const ImageWrapper = styled.div`
   width: 100%;
   height: 5rem;
   cursor: pointer;
+  margin-bottom: 3rem;
 `;
 
-const ModeWrapper = styled.div`
+const TableWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  height: 5rem;
-  margin-bottom: 5rem;
+  gap: 1rem;
 `;

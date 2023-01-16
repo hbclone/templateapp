@@ -7,18 +7,22 @@ export const menu: IMenu[] = [
       {
         id: 1,
         tabName: "Home",
-        subTab: {
-          subId: "1-1",
-          subTabName: "DashBoard",
-        },
+        subTab: [
+          {
+            subId: "1-1",
+            subTabName: "DashBoard",
+          },
+        ],
       },
       {
         id: 2,
         tabName: "Tables",
-        subTab: {
-          subId: "2-1",
-          subTabName: "Table",
-        },
+        subTab: [
+          {
+            subId: "2-1",
+            subTabName: "Table",
+          },
+        ],
       },
     ],
   },

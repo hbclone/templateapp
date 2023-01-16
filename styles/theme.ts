@@ -1,6 +1,6 @@
 import { injectGlobal } from "@emotion/css";
 import emotionNormalize from "emotion-normalize";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 import normalize from "styled-normalize";
 import { FontStyle } from "../interface/global";
 
@@ -72,6 +72,7 @@ interface Theme {
   };
   text: {
     primary: string;
+    font: string;
   };
   border: {
     primary: string;
@@ -86,6 +87,7 @@ const light: Theme = {
   },
   text: {
     primary: "#202124",
+    font: "#526278",
   },
   border: {
     primary: "#9277FF",
@@ -99,6 +101,7 @@ const dark: Theme = {
   },
   text: {
     primary: "#eff0f5",
+    font: "#9d9dA6",
   },
   border: {
     primary: "#141625",
@@ -107,6 +110,14 @@ const dark: Theme = {
 
 export const lightTheme = { ...light };
 export const darkTheme = { ...dark };
+
+//theme에 따른 css
+export const BaseMode = css`
+  transition: background-color ease 1s;
+  background: ${({ theme }) => theme.text.primary};
+  border-right: ${({ theme }) => `1px solid ${theme.border.primary}`};
+  background: ${({ theme }) => theme.bg.side};
+`;
 
 //flex 형태의 DIV
 export const Column = styled.div`
